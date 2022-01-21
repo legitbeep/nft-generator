@@ -1,0 +1,15 @@
+<svg width="503" height="503" viewBox="0 0 503 503" fill="none" xmlns="http://www.w3.org/2000/svg">
+<ellipse cx="257.5" cy="322.5" rx="42.5" ry="39.5" fill="url(#paint0_linear_4_438)"/>
+<path d="M306.703 360.043C306.703 316.043 281.703 319.043 271.703 319.043C266.203 319.075 265.703 322.043 263.203 326.543C259.203 327.343 252.203 322.21 248.703 321.043C231.203 315.543 218.203 331.043 220.203 343.543C222.203 356.043 236.203 358.543 251.703 362.043C267.203 365.543 267.703 369.95 267.703 382.043C267.703 387 271.703 444.5 324.5 453C393.627 464.129 398.963 403.272 389.203 385.543C384.5 377 389.203 365.543 412.703 382.043C423.835 389.859 431.703 384.043 439.703 372.043C447.703 360.043 437.703 362.043 433.203 365.543C428.703 369.043 416.203 371.043 394.703 362.043C373.203 353.043 361.703 377.043 366.203 393.043C370.703 409.043 365.703 428.543 344.203 432.043C322.703 435.543 306.703 404.043 306.703 360.043Z" fill="url(#paint1_radial_4_438)"/>
+<defs>
+<linearGradient id="paint0_linear_4_438" x1="257.5" y1="283" x2="257.5" y2="362" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#766F6F"/>
+</linearGradient>
+<radialGradient id="paint1_radial_4_438" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(352.5 293.5) rotate(82.6319) scale(233.932 368.597)">
+<stop stop-color="#EFDBFF"/>
+<stop offset="0.541667" stop-color="#FF50F8"/>
+<stop offset="1" stop-color="#924AEF"/>
+</radialGradient>
+</defs>
+</svg>
