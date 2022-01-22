@@ -38,7 +38,7 @@ const saveMeta = (name) => {
             }
         ]
     }
-    writeFileSync(`./output/${name}.json`, JSON.stringify(meta))
+    fs.writeFileSync(`./output/${name}.json`, JSON.stringify(meta))
 }
 
 const drawLayer = async(_layer, _name, index) => {
