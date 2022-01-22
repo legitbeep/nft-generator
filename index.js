@@ -21,10 +21,12 @@ const getEdition = () => {
 }
 
 const editions = getEdition();
+let curEdition = 0;
 
 const saveLayer = (_canvas,_name) => {
     fs.writeFileSync(`./output/${_name}.png`,_canvas.toBuffer("image/png")); // path, buffer
     console.log("added image",_name);
+    curEdition++;
 }
 
 const saveMeta = (name) => {
@@ -79,8 +81,8 @@ for(let i = 0 ; i<curCombination.length; i++){
 let curName = "";
 
 while(generated.length < editions-1){
-    while(generated.includes(curCombination) ){
-        for(let i = indices.length-1; i>0; i--){
+    while(generated.includes(curCombination)){
+        for(let i = indices.length-1; i>-1; i--){
             indices[i]++;
             if( indices[i] > maxCombination[i] ){
                 for(let j = i ; j<indices.length; j++){
@@ -102,3 +104,5 @@ while(generated.length < editions-1){
     generated.push(curCombination);
     takenNames.push(curName);
 }
+
+console.log("Total nft generated: "+curEdition);
