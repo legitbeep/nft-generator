@@ -77,7 +77,7 @@ for(let i = 0 ; i<curCombination.length; i++){
 }
 let curName = "";
 
-while(generated.length < 10 && curCombination != finalCombination){
+while(generated.length < editions && curCombination != finalCombination){
     while(generated.includes(curCombination) && curCombination != finalCombination){
         for(let i = indices.length-1; i>0; i--){
             indices[i]++;
