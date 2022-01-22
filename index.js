@@ -24,7 +24,6 @@ const editions = getEdition();
 
 const saveLayer = (_canvas,_name) => {
     fs.writeFileSync(`./output/${_name}.png`,_canvas.toBuffer("image/png")); // path, buffer
-    console.log("added image"+_name);
 }
 
 const saveMeta = (name) => {
@@ -55,6 +54,7 @@ const drawLayer = async(_layer, _name, index) => {
         //console.log(`Added ${_layer.name} and chose ${element.name}`);
         saveLayer(canvas,_name);
         saveMeta(_name);
+        console.log("added image "+_name+ " ", curCombination);
     }
 }
 
@@ -70,14 +70,14 @@ const getFirstCombination = () => {
 }
 
 let [curCombination, finalCombination] = getFirstCombination();
-console.log(fNames.length*lNames.length,fNames,curCombination,finalCombination);
+console.log("Generating "+ editions + " combinations of input files...");
 let indices = [];
 for(let i = 0 ; i<curCombination.length; i++){
     indices.push(parseInt(curCombination[i]));
 }
 let curName = "";
 
-while(generated.length < editions || curCombination == finalCombination){
+while(generated.length < 10 || curCombination == finalCombination){
     while(generated.includes(curCombination || curCombination == finalCombination )){
         for(let i = indices.length; i>0; i--){
             if( indices[i] == finalCombination[i] ){
