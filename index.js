@@ -97,8 +97,8 @@ while(generated.length < 10 && curCombination != finalCombination){
     }
     generated.push(curCombination);
     takenNames.push(curName);
-    // layers.forEach((lyr,idx) => {
-    //     drawLayer(lyr, curName, lyr.id == 1 ? Math.floor(Math.random()*lyr.elements.length) : indices[idx-1])
-    // })
+    layers.forEach((lyr,idx) => {
+        drawLayer(lyr, curName, lyr.id == 1 ? Math.floor(Math.random()*lyr.elements.length) : indices[idx-1])
+    })
     console.log("added image",curName);
 }
