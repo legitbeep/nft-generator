@@ -54,7 +54,6 @@ const drawLayer = async(_layer, _name, index) => {
         //console.log(`Added ${_layer.name} and chose ${element.name}`);
         saveLayer(canvas,_name);
         saveMeta(_name);
-        console.log("added image "+_name+ " ", curCombination);
     }
 }
 
@@ -77,10 +76,10 @@ for(let i = 0 ; i<curCombination.length; i++){
 }
 let curName = "";
 
-while(generated.length < 10 || curCombination == finalCombination){
-    while(generated.includes(curCombination || curCombination == finalCombination )){
+while(generated.length < editions){
+    while(generated.includes(curCombination)){
         for(let i = indices.length; i>0; i--){
-            if( indices[i] == finalCombination[i] ){
+            if( indices[i] > finalCombination[i] ){
                 for(let j = i ; j<indices.length; j++){
                     indices[j] = 0;
                 }
@@ -98,4 +97,5 @@ while(generated.length < 10 || curCombination == finalCombination){
     layers.forEach((lyr,idx) => {
         drawLayer(lyr, curName, lyr.id == 1 ? Math.floor(Math.random()*lyr.elements.length) : indices[idx-1])
     })
+    console.log("added image",curName);
 }
