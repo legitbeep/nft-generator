@@ -24,6 +24,7 @@ const editions = getEdition();
 
 const saveLayer = (_canvas,_name) => {
     fs.writeFileSync(`./output/${_name}.png`,_canvas.toBuffer("image/png")); // path, buffer
+    console.log("added image",_name);
 }
 
 const saveMeta = (name) => {
@@ -77,8 +78,8 @@ for(let i = 0 ; i<curCombination.length; i++){
 }
 let curName = "";
 
-while(generated.length < editions && curCombination != finalCombination){
-    while(generated.includes(curCombination) && curCombination != finalCombination){
+while(generated.length < editions-1){
+    while(generated.includes(curCombination) ){
         for(let i = indices.length-1; i>0; i--){
             indices[i]++;
             if( indices[i] > maxCombination[i] ){
@@ -95,10 +96,9 @@ while(generated.length < editions && curCombination != finalCombination){
     while(takenNames.includes(curName)){
         curName = fNames[Math.floor(Math.random()*fNames.length)] + " " + lNames[Math.floor(Math.random()*lNames.length)]
     }
-    generated.push(curCombination);
-    takenNames.push(curName);
     layers.forEach((lyr,idx) => {
         drawLayer(lyr, curName, lyr.id == 1 ? Math.floor(Math.random()*lyr.elements.length) : indices[idx-1])
     })
-    console.log("added image",curName);
+    generated.push(curCombination);
+    takenNames.push(curName);
 }
