@@ -58,17 +58,18 @@ const drawLayer = async(_layer, _name, index) => {
 }
 
 const getFirstCombination = () => {
-    let _curCombination = "", _finalCom = [];
+    let _curCombination = "", _maxCom = [], _finalCom = "" ;
     layers.forEach((_layer) => {
         if (_layer.id !== 1) {
             _curCombination = _curCombination + "0" ;
-            _finalCom.push(_layer.elements.length-1);
+            _maxCom.push(_layer.elements.length-1);
+            _finalCom = _finalCom + (_layer.elements.length-1);
         }
     })
-    return [_curCombination, _finalCom];
+    return [_curCombination, _maxCom, _finalCom];
 }
 
-let [curCombination, finalCombination] = getFirstCombination();
+let [curCombination, maxCombination, finalCombination] = getFirstCombination();
 console.log("Generating "+ editions + " combinations of input files...");
 let indices = [];
 for(let i = 0 ; i<curCombination.length; i++){
@@ -76,14 +77,16 @@ for(let i = 0 ; i<curCombination.length; i++){
 }
 let curName = "";
 
-while(generated.length < editions){
-    while(generated.includes(curCombination)){
-        for(let i = indices.length; i>0; i--){
-            if( indices[i] > finalCombination[i] ){
+while(generated.length < 10 && curCombination != finalCombination){
+    while(generated.includes(curCombination) && curCombination != finalCombination){
+        for(let i = indices.length-1; i>0; i--){
+            indices[i]++;
+            if( indices[i] > maxCombination[i] ){
                 for(let j = i ; j<indices.length; j++){
                     indices[j] = 0;
                 }
-                indices[i-1]++;
+            } else {
+                break;
             }
         }
         curCombination = "";
@@ -94,8 +97,8 @@ while(generated.length < editions){
     }
     generated.push(curCombination);
     takenNames.push(curName);
-    layers.forEach((lyr,idx) => {
-        drawLayer(lyr, curName, lyr.id == 1 ? Math.floor(Math.random()*lyr.elements.length) : indices[idx-1])
-    })
+    // layers.forEach((lyr,idx) => {
+    //     drawLayer(lyr, curName, lyr.id == 1 ? Math.floor(Math.random()*lyr.elements.length) : indices[idx-1])
+    // })
     console.log("added image",curName);
 }
