@@ -23,16 +23,15 @@ const getEdition = () => {
 const editions = getEdition();
 let curEdition = 0;
 
-const saveLayer = (_canvas,_name) => {
-    fs.writeFileSync(`./output/${_name}.png`,_canvas.toBuffer("image/png")); // path, buffer
-    console.log("added image",_name);
+const saveLayer = (_canvas,idx) => {
+    fs.writeFileSync(`./output/${idx}.png`,_canvas.toBuffer("image/png")); // path, buffer
     curEdition++;
 }
 
-const saveMeta = (name) => {
+const saveMeta = (name, idx) => {
     const meta = {
         name,
-        description: `A drawing of ${name}`,
+        description: `Photo of ${name}`,
         image: `${name}.png`,
         attributes: [
             { 
@@ -40,10 +39,10 @@ const saveMeta = (name) => {
             }
         ]
     }
-    fs.writeFileSync(`./output/${name}.json`, JSON.stringify(meta))
+    fs.writeFileSync(`./output/${idx}.json`, JSON.stringify(meta))
 }
 
-const drawLayer = async(_layer, _name, index) => {
+const drawLayer = async(_layer, _name, index, idx) => {
     let element = _layer.elements[index];
     if (element && element.fileName) {
         const img = await loadImage(`${_layer.location}${element.fileName}`);
@@ -55,13 +54,13 @@ const drawLayer = async(_layer, _name, index) => {
             _layer.size.height
         ); //(img,x,y,width,height);
         //console.log(`Added ${_layer.name} and chose ${element.name}`);
-        saveLayer(canvas,_name);
-        saveMeta(_name);
+        saveLayer(canvas, idx);
+        saveMeta(_name, idx);
     }
 }
 
 const getFirstCombination = () => {
-    let _curCombination = "", _maxCom = [], _finalCom = "" ;
+    let _curCombination = "", _maxCom = [], _finalCom = "";
     layers.forEach((_layer) => {
         if (_layer.id !== 1) {
             _curCombination = _curCombination + "0" ;
@@ -78,7 +77,7 @@ let indices = [];
 for(let i = 0 ; i<curCombination.length; i++){
     indices.push(parseInt(curCombination[i]));
 }
-let curName = "";
+let curName = "", tokenId = 1;
 
 while(generated.length < editions-1){
     while(generated.includes(curCombination)){
@@ -99,10 +98,12 @@ while(generated.length < editions-1){
         curName = fNames[Math.floor(Math.random()*fNames.length)] + " " + lNames[Math.floor(Math.random()*lNames.length)]
     }
     layers.forEach((lyr,idx) => {
-        drawLayer(lyr, curName, lyr.id == 1 ? Math.floor(Math.random()*lyr.elements.length) : indices[idx-1])
+        drawLayer(lyr, curName, lyr.id == 1 ? Math.floor(Math.random()*lyr.elements.length) : indices[idx-1], tokenId)
     })
+    console.log("Added Image : ",tokenId);
+    tokenId++;
     generated.push(curCombination);
     takenNames.push(curName);
 }
 
-console.log("Total nft generated: "+curEdition);
+console.log("Total nft generated: ",tokenId-1);
