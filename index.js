@@ -32,7 +32,7 @@ const saveMeta = (name, idx) => {
     const meta = {
         name,
         description: `Photo of ${name}`,
-        image: `${name}.png`,
+        image: `${idx}.png`,
         attributes: [
             { 
                 rarity: 0.5
@@ -55,7 +55,7 @@ const drawLayer = async(_layer, _name, index, idx) => {
         ); //(img,x,y,width,height);
         //console.log(`Added ${_layer.name} and chose ${element.name}`);
         saveLayer(canvas, idx);
-        saveMeta(_name, idx);
+        //saveMeta(_name, idx);
     }
 }
 
@@ -77,7 +77,7 @@ let indices = [];
 for(let i = 0 ; i<curCombination.length; i++){
     indices.push(parseInt(curCombination[i]));
 }
-let curName = "", tokenId = 1;
+let curName = "", tokenId = 1, data = {};
 
 while(generated.length < editions-1){
     while(generated.includes(curCombination)){
@@ -98,12 +98,15 @@ while(generated.length < editions-1){
         curName = fNames[Math.floor(Math.random()*fNames.length)] + " " + lNames[Math.floor(Math.random()*lNames.length)]
     }
     layers.forEach((lyr,idx) => {
-        drawLayer(lyr, curName, lyr.id == 1 ? Math.floor(Math.random()*lyr.elements.length) : indices[idx-1], tokenId)
+       // drawLayer(lyr, curName, lyr.id == 1 ? Math.floor(Math.random()*lyr.elements.length) : indices[idx-1], tokenId)
     })
     console.log("Added Image : ",tokenId);
+    //console.log(tokenId-1,":",curName,",");
+    data[tokenId] = curName;
     tokenId++;
     generated.push(curCombination);
     takenNames.push(curName);
 }
-
+console.log(data);
+fs.writeFileSync(`./outputJson/nftMap.json`,JSON.stringify(data));
 console.log("Total nft generated: ",tokenId-1);
